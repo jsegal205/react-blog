@@ -12,13 +12,24 @@
   <body>
     <div id="blog"></div>
     <script type="text/babel">
+      var data = [{
+       id: 1, 
+       author: 'Jim Segal', 
+       timestamp: 'Feb 1 2016 10:30pm', 
+       text:'Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey.'
+      }]
       var BlogList = React.createClass({
         render: function () {
+          var blogNodes = this.props.data.map(function(blog){
+            return (
+              <Blog key={blog.id} author={blog.author} timestamp={blog.timestamp}>
+                {blog.text}
+              </Blog>
+              );
+          });
           return (
             <div className="blogList">
-              <Blog author="Jim Segal" timestamp="Feb 1 2016 10:30pm">
-                Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey.
-              </Blog>
+              {blogNodes}
             </div>
           );
         }
@@ -55,7 +66,7 @@
           return (
             <div className="blogBox">
               <h1>Blog</h1>
-              <BlogList />
+              <BlogList data={this.props.data} />
               <BlogForm />
             </div>
             );          
@@ -63,7 +74,7 @@
       });
 
       ReactDOM.render(
-        <BlogBox />,
+        <BlogBox data={data} />,
         document.getElementById('blog')
       );
     </script>
