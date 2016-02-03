@@ -16,7 +16,9 @@
         render: function () {
           return (
             <div className="blogList">
-              I am the blog list
+              <Blog author="Jim Segal" timestamp="Feb 1 2016 10:30pm">
+                Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey.
+              </Blog>
             </div>
           );
         }
@@ -31,7 +33,22 @@
             );
         }
       });
-      
+
+      var Blog = React.createClass({
+        render: function () {
+          return (
+              <div className="blog">
+                <h2 className="blogAuthor">
+                  {this.props.author}
+                </h2>
+                <h4>
+                  {this.props.timestamp}
+                </h4>
+                {this.props.children}
+              </div>
+            );
+        }
+      });
 
       var BlogBox = React.createClass({
         render: function () {
