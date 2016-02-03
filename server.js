@@ -16,6 +16,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
+var BLOGS_FILE = path.join(__dirname, 'blogs.json');
 var COMMENTS_FILE = path.join(__dirname, 'comments.json');
 
 app.set('port', (process.env.PORT || 4000));
@@ -71,6 +72,15 @@ app.post('/api/comments', function(req, res) {
   });
 });
 
+app.get('/api/blogs', function(req, res){
+  fs.readFile(BLOGS_FILE, function(err, data){
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    res.json(JSON.parse(data));
+  });
+});
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
