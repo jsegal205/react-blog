@@ -10,12 +10,88 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
   </head>
   <body>
-    <div id="content"></div>
     <div id="blog"></div>
-    <script type="text/babel" src="scripts/example.js"></script>
     <script type="text/babel">
-      // To get started with this tutorial running your own code, simply remove
-      // the script tag loading scripts/example.js and start writing code here.
+      var BlogList = React.createClass({
+        render: function() {
+          var blogNodes = this.props.data.map(function(blog){
+            return (
+              <Blog key={blog.id} author={blog.author} time={blog.time}>
+                {blog.text}
+              </Blog>
+            );
+          });
+          return (
+            <div className="blogList">
+              {blogNodes}
+            </div>
+          );
+        }
+      });
+
+      var BlogForm = React.createClass({
+        render: function() {
+          return (
+            <div className="blogForm">
+              this is the blog form
+            </div>
+          );
+        }
+      });
+
+      var Blog = React.createClass({
+        render: function() {
+          return (
+            <div className="blog">
+              <h2 className="blogAuthor">
+                {this.props.author}
+              </h2>
+              <h4>
+                {this.props.time}
+              </h4>
+              {this.props.children}
+            </div>
+          );
+        }
+      });
+
+      var BlogBox = React.createClass({
+        loadBlogsFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function(){
+          return {data: []};
+        },
+        componentDidMount: function(){
+          this.loadBlogsFromServer();
+          setInterval(this.loadBlogsFromServer, this.props.pollInterval);
+        },
+        render: function() {
+          return (
+            <div className="blogBox">
+              <h1>Blog</h1>
+              <BlogList data={this.state.data} />
+              <br />
+              <BlogForm />
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <BlogBox url="/api/blogs" pollInterval={10000} />,
+        document.getElementById('blog')
+      );
     </script>
   </body>
 </html>
