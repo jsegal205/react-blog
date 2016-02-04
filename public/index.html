@@ -30,11 +30,43 @@
       });
 
       var BlogForm = React.createClass({
+        getInitialState: function() {
+          return {author: '', text: '', time: ''};
+        },
+        handleAuthorChange: function(e) {
+          this.setState({author: e.target.value});
+        },
+        handleTextChange: function(e) {
+          this.setState({text: e.target.value});
+        },
+        handleSubmit: function(e) {
+          e.preventDefault();
+          var author = this.state.author.trim();
+          var text = this.state.text.trim();
+          if (!author || !text) {
+            return;
+          }
+          this.props.onBlogSubmit({author: author, text: text, time: new Date().toLocaleString()});
+          this.setState({author: '', text: ''});
+        },
         render: function() {
           return (
-            <div className="blogForm">
-              this is the blog form
-            </div>
+            <form className="blogForm" onSubmit={this.handleSubmit}>
+              <div>
+                <label htmlFor="author">Author:</label>
+                <input name="author" type="text" placeholder="name" value={this.state.author} onChange={this.handleAuthorChange} />
+              </div>
+              <div style={{float:'right'}}>
+                {this.state.time}
+              </div>
+              <div>
+                <label htmlFor="text">Blog entry:</label>
+                <textarea name="text" style={{width:200 +'px', height:200 +'px'}} value={this.state.text} onChange={this.handleTextChange} />
+              </div>
+              <div>
+                <input type="submit" value="Add blog entry" />
+              </div>
+            </form>
           );
         }
       });
@@ -69,6 +101,20 @@
             }.bind(this)
           });
         },
+        handleBlogSubmit: function(blog) {
+          $.ajax({
+            url: this.props.url, 
+            dataType: 'json', 
+            type: 'POST', 
+            data: blog, 
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
         getInitialState: function(){
           return {data: []};
         },
@@ -82,14 +128,14 @@
               <h1>Blog</h1>
               <BlogList data={this.state.data} />
               <br />
-              <BlogForm />
+              <BlogForm onBlogSubmit={this.handleBlogSubmit} />
             </div>
           );
         }
       });
 
       ReactDOM.render(
-        <BlogBox url="/api/blogs" pollInterval={10000} />,
+        <BlogBox url="/api/blogs" pollInterval={2000} />,
         document.getElementById('blog')
       );
     </script>

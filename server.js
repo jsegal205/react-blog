@@ -82,6 +82,30 @@ app.get('/api/blogs', function(req, res){
   });
 });
 
+app.post('/api/blogs', function(req, res) {
+  fs.readFile(BLOGS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    var blogs = JSON.parse(data);
+    var newBlog = {
+      id: blogs[blogs.length - 1].id + 1,
+      author: req.body.author, 
+      text: req.body.text, 
+      time: req.body.time
+    };
+    blogs.push(newBlog);
+    fs.writeFile(BLOGS_FILE, JSON.stringify(blogs, null, 4), function(err){
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      res.json(blogs);
+    });
+  });
+});
+
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
