@@ -91,8 +91,8 @@ app.post('/api/blogs', function(req, res) {
     var blogs = JSON.parse(data);
     var newBlog = {
       id: blogs[blogs.length - 1].id + 1,
-      author: req.body.author, 
-      text: req.body.text, 
+      author: req.body.author,
+      text: req.body.text,
       time: req.body.time
     };
     blogs.push(newBlog);
