@@ -102,15 +102,20 @@
           });
         },
         handleBlogSubmit: function(blog) {
+          var blogs = this.state.data; 
+          blog.id = blogs[blogs.length - 1].id + 1; 
+          var newBlogs = blogs.concat([blog]);
+          this.setState({data: newBlogs});
           $.ajax({
-            url: this.props.url, 
-            dataType: 'json', 
-            type: 'POST', 
-            data: blog, 
+            url: this.props.url,
+            dataType: 'json',
+            type: 'POST',
+            data: blog,
             success: function(data) {
               this.setState({data: data});
             }.bind(this),
             error: function(xhr, status, err) {
+              this.setState({data: comments});
               console.error(this.props.url, status, err.toString());
             }.bind(this)
           });
