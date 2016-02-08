@@ -3,12 +3,34 @@
         "id": 1,
         "author": "Jim Segal",
         "time": "2/1/2016, 10:30:00 PM",
-        "text": "Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey."
+        "text": "Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey.",
+        "comments": [{
+                "comment_id": 1,
+                "comment_author": "jimmy commentington",
+                "comment_text": "this is a sweet blog poost",
+                "comment_time": "2/7/2016, 7:59:00 PM"
+            }
+        ]
     },
     {
         "id": 2,
         "author": "Shamus OBobrick",
         "time": "2/2/2016, 10:30:00 PM",
-        "text": "Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey."
+        "text": "Bacon ipsum dolor amet rump pork turducken, cow fatback picanha shank kevin. Ball tip cupim andouille pancetta. Rump short ribs drumstick salami meatloaf turkey beef. Ham hock beef kevin short loin meatball meatloaf t-bone flank chicken. Shank brisket pork loin, frankfurter biltong cow filet mignon turkey.",
+        "comments": [
+            {
+                "comment_id": 1,
+                "comment_author": "tony the tiger",
+                "comment_text": "this is grrrrrrrrrrreat",
+                "comment_time": "2/7/2016, 8:59:00 PM"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "author": "jimbo jimmyton",
+        "text": "here is another entry",
+        "time": "2/7/2016, 7:59:00 AM",
+        "comments": []
     }
 ]
